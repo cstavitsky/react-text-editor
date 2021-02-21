@@ -20,12 +20,13 @@ class StyleButton extends React.Component {
 class TextArea extends React.Component {
   render(text) {
     return (
-      <textarea
+      <div
+        contenteditable="true"
         className='text-area'
-        onChange={(event) => this.props.onChange(event)}
+        onKeyUp={(event) => this.props.onChange(event)}
         value={this.props.text}
       >
-      </textarea>
+      </div>
     );
   }
 }
@@ -43,7 +44,7 @@ class TextEditor extends React.Component {
   }
 
   handleKeyUp(event) {
-    this.setState({text: event.target.value});
+    this.setState({text: event.target.innerText}); //note: this will need to be changed i think. innerText will not be able to grab the <strong> tags.
   }
 
   handleClick(buttonType) {
