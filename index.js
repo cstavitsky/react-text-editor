@@ -22,7 +22,7 @@ class TextArea extends React.Component {
     return (
       <textarea
         className='text-area'
-        onKeyUp={() => this.props.onKeyUp()}
+        onChange={(event) => this.props.onChange(event)}
         value={this.props.text}
       >
       </textarea>
@@ -37,20 +37,13 @@ class TextEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: this.props.text,
+      text: 'hello',
       boldOn: false,
     };
   }
 
-  handleKeyUp() {
-    //let text = this.state.text.slice();
-    const textPlusUserInput = "something placeholder text";
-    this.setState(
-      {
-        text: textPlusUserInput,
-      }
-    );
-
+  handleKeyUp(event) {
+    this.setState({text: event.target.value});
   }
 
   handleClick(buttonType) {
@@ -81,13 +74,13 @@ class TextEditor extends React.Component {
   renderTextArea() {
     return <TextArea
       text={this.state.text}
-      onKeyUp={() => this.handleKeyUp(this.state.text)}
+      onChange={(event) => this.handleKeyUp(event)}
     />
   }
 
   render() {
     return (
-      <div class='text-editor'>
+      <div className='text-editor'>
         <div className="buttonRow">
           {this.renderButton('bold')}
           {this.renderButton('italic')}
