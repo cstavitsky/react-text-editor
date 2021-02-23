@@ -17,6 +17,22 @@ class StyleButton extends React.Component {
   }
 }
 
+class Preview extends React.Component {
+  createText() {
+    return {__html: this.props.text}
+  }
+
+  render() {
+    return(
+      <div>
+        <h1>Preview</h1>
+        <hr />
+        <div dangerouslySetInnerHTML={this.createText()} />
+      </div>
+    )
+  }
+}
+
 class TextArea extends React.Component {
   render(text) {
     return (
@@ -31,14 +47,11 @@ class TextArea extends React.Component {
   }
 }
 
-// create a TextEditor component
-// have it render a TextInput
-// have it render several buttons.
 class TextEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: 'hello',
+      text: '',
       boldOn: false,
     };
   }
@@ -79,6 +92,10 @@ class TextEditor extends React.Component {
     />
   }
 
+  renderPreview() {
+    return <Preview text={this.state.text} />
+  }
+
   render() {
     return (
       <div className='text-editor'>
@@ -89,6 +106,9 @@ class TextEditor extends React.Component {
         </div>
         <div>
           {this.renderTextArea()}
+        </div>
+        <div>
+          {this.renderPreview()}
         </div>
       </div>
     )
