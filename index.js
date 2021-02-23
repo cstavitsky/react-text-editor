@@ -36,13 +36,12 @@ class Preview extends React.Component {
 class TextArea extends React.Component {
   render(text) {
     return (
-      <div
-        contenteditable="true"
+      <textarea
         className='text-area'
-        onKeyUp={(event) => this.props.onChange(event)}
+        onChange={(event) => this.props.onChange(event)}
         value={this.props.text}
       >
-      </div>
+      </textarea>
     );
   }
 }
@@ -57,7 +56,7 @@ class TextEditor extends React.Component {
   }
 
   handleKeyUp(event) {
-    this.setState({text: event.target.innerText}); //note: this will need to be changed i think. innerText will not be able to grab the <strong> tags.
+    this.setState({text: event.target.value});
   }
 
   handleClick(buttonType) {
