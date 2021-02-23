@@ -17,11 +17,11 @@ class StyleButton extends React.Component {
   }
 }
 
-class TextArea extends React.Component {
+class Input extends React.Component {
   render(text) {
     return (
       <div
-        contenteditable="true"
+        contentEditable="true"
         className='text-area'
         onKeyUp={(event) => this.props.onChange(event)}
         value={this.props.text}
@@ -38,7 +38,7 @@ class TextEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: 'hello',
+      text: '',
       boldOn: false,
     };
   }
@@ -72,8 +72,8 @@ class TextEditor extends React.Component {
     />
   }
 
-  renderTextArea() {
-    return <TextArea
+  renderInput() {
+    return <Input
       text={this.state.text}
       onChange={(event) => this.handleKeyUp(event)}
     />
@@ -88,7 +88,7 @@ class TextEditor extends React.Component {
           {this.renderButton('highlight')}
         </div>
         <div>
-          {this.renderTextArea()}
+          {this.renderInput()}
         </div>
       </div>
     )
