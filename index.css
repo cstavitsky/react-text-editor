@@ -12,7 +12,7 @@
 }
 
 .text-area {
-    height: 600px;
-    width: 100%;
+    height: 200px;
+    width: 50%;
     border: 1px solid black;
 }
