@@ -2,6 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+class GifInserter extends React.Component {
+  render() {
+    return(
+      <div>
+        <h1>hello</h1>
+        <button
+          onClick={() => this.props.onClick()}
+        >
+          Add Gif
+        </button>
+      </div>
+    )
+  }
+}
+
 class Preview extends React.Component {
   matchedPoundSign(line) {
     return line.match(/#+ /);
@@ -175,6 +190,24 @@ class TextEditor extends React.Component {
     });
   }
 
+  handleClick() {
+    let text = this.state.text.slice();
+    let GIPHY_API_KEY = process.env.REACT_APP_GIPHY_API_KEY
+    fetch('http://api.giphy.com/v1/gifs/trending?api_key=' + GIPHY_API_KEY)
+    .then(res => res.json())
+      .then((data) => {
+        let randomNum = Math.floor(Math.random() * 50) + 1;
+        let randomGif = "<p><img src=" + data.data[randomNum].images.downsized.url + "/></p>";
+        this.setState({ text: text += randomGif });
+      })
+  }
+
+  renderGifInserter() {
+    return <GifInserter
+      onClick={() => this.handleClick()}
+    />
+  }
+
   renderTextArea() {
     return <TextArea
       text={this.state.text}
@@ -192,6 +225,9 @@ class TextEditor extends React.Component {
       <div className='text-editor'>
         <div>
           {this.renderTextArea()}
+        </div>
+        <div>
+          {this.renderGifInserter()}
         </div>
         <div>
           {this.renderPreview()}
